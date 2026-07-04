@@ -1,0 +1,31 @@
+.header {
+  background-color: #f8f9fa;
+  padding: 20px 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.list {
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.link {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 250ms linear;
+}
+
+.link:hover,
+.link:focus {
+  color: blue;
+}
+
+.active {
+  color: blue;
+  font-weight: 600;
+  border-bottom: 2px solid blue;
+}
