@@ -2,20 +2,23 @@ import { useEffect, useState } from 'react';
 import { fetchMovieReviews } from '../../js/tmdb-api';
 import { useParams } from 'react-router-dom';
 import css from './MovieReviews.module.css';
+import { Reviews } from '../../types/global';
 
 export default function MovieReviews() {
   const { movieId } = useParams();
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState<Reviews[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    if (!movieId) return;
+
     const getInfo = async () => {
       try {
         setIsLoading(true);
         setError(false);
-        const data = await fetchMovieReviews(movieId);
-        setReviews(data);
+        const { results } = await fetchMovieReviews(movieId);
+        setReviews(results);
       } catch {
         setError(true);
       } finally {

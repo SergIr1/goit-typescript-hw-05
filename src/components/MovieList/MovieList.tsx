@@ -1,7 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
 import css from './MovieList.module.css';
+import { Movie } from '../../types/global';
 
-export default function MovieList({ movies }) {
+interface MovieListProps {
+  movies: Movie[];
+}
+
+export default function MovieList({ movies }: MovieListProps) {
   const location = useLocation();
 
   return (

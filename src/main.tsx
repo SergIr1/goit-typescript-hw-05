@@ -5,7 +5,7 @@ import 'modern-normalize';
 import App from './components/App/App.jsx';
 import './index.css';
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <BrowserRouter>
       <App />

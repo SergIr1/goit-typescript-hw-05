@@ -2,19 +2,23 @@ import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetshMovieById } from '../../js/tmdb-api';
 import css from './MovieDetailsPage.module.css';
+import { MovieDetailes } from '../../types/global';
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
-  const [movie, setMovie] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [movie, setMovie] = useState<MovieDetailes | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   const location = useLocation();
   const backLinkRef = useRef(location.state);
 
-  console.log(backLinkRef);
+  // console.log(movieId);
+  // console.log(backLinkRef);
   useEffect(() => {
     async function getMovie() {
+      if (!movieId) return;
+
       try {
         setIsLoading(true);
         setError(false);

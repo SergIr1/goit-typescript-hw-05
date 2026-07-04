@@ -1,8 +1,8 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, NavLinkRenderProps } from 'react-router-dom';
 import css from './Navigation.module.css';
 import clsx from 'clsx';
 
-const getLinkStyles = ({ isActive }) => {
+const getLinkStyles = ({ isActive }: NavLinkRenderProps) => {
   return clsx(css.link, isActive && css.active);
 };
 

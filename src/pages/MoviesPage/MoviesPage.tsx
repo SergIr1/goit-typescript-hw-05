@@ -1,23 +1,24 @@
 // import { Formik, Form, Field } from 'formik';
 import { useEffect, useState } from 'react';
-import { fetchSearch } from '../../js/tmdb-api.js';
+import { fetchSearch } from '../../js/tmdb-api';
 import { useDebounce } from 'use-debounce';
 // import { toast } from 'react-hot-toast';
 import css from './MoviesPage.module.css';
 
 import { useSearchParams } from 'react-router-dom';
-import MovieList from '../../components/MovieList/MovieList.jsx';
+import MovieList from '../../components/MovieList/MovieList.js';
+import { Movie } from '../../types/global.js';
 
 export default function MoviesPage() {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const query = searchParams.get('search') ?? '';
 
   const [debouncedQuery] = useDebounce(query, 5000);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     const getSearch = async () => {
@@ -25,7 +26,8 @@ export default function MoviesPage() {
         setIsLoading(true);
 
         const data = await fetchSearch(debouncedQuery);
-        setMovies(data);
+        // console.log(data);
+        setMovies(data.results);
         setError(false);
       } catch {
         setError(true);
@@ -37,7 +39,7 @@ export default function MoviesPage() {
     getSearch();
   }, [debouncedQuery]);
 
-  const cahgeSearchText = event => {
+  const cahgeSearchText: React.ChangeEventHandler<HTMLInputElement> = event => {
     // console.log(event.target.value);
 
     const nextParams = new URLSearchParams(searchParams);

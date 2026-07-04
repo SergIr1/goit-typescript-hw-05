@@ -1,12 +1,13 @@
 import { fetchTrendingMovies } from '../../js/tmdb-api.js';
 import { useEffect, useState } from 'react';
 import css from './HomePage.module.css';
-import MovieList from '../../components/MovieList/MovieList.jsx';
+import MovieList from '../../components/MovieList/MovieList';
+import { Movie } from '../../types/global';
 
 export default function HomePage() {
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     const getMovies = async () => {
@@ -14,7 +15,8 @@ export default function HomePage() {
         setIsLoading(true);
         setError(false);
         const data = await fetchTrendingMovies();
-        setMovies(data);
+        // console.log(data);
+        setMovies(data.results);
       } catch {
         setError(true);
       } finally {
